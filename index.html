@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refugee Digital Identity and Life-Progress Wallet</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Refugee Digital Identity and Life-Progress Wallet</h1>
+      <p class="subtitle">Dadaab (Hagadera, Ifo, Dagahaley) & Kakuma Camps</p>
+    </div>
+    <button id="toggleTheme" class="btn secondary">Toggle Theme</button>
+  </header>
+
+  <main class="container">
+    <section class="card auth-card">
+      <h2>Secure Sign In / Registration</h2>
+      <form id="authForm" class="grid-2">
+        <label>Full Name<input type="text" id="name" required placeholder="e.g., Asha Ibrahim" /></label>
+        <label>Email (Firebase Auth)<input type="email" id="email" required placeholder="asha@example.org" /></label>
+        <label>Role
+          <select id="role" required>
+            <option value="refugee">Refugee</option>
+            <option value="ngo">NGO Staff</option>
+            <option value="service">Service Coordinator</option>
+          </select>
+        </label>
+        <label>Camp
+          <select id="camp" required>
+            <option value="Hagadera">Hagadera</option>
+            <option value="Ifo">Ifo</option>
+            <option value="Dagahaley">Dagahaley</option>
+            <option value="Kakuma">Kakuma</option>
+          </select>
+        </label>
+        <label>ID Type
+          <select id="idType" required>
+            <option value="Ration Card">Ration Card</option>
+            <option value="Alien ID">Alien ID</option>
+          </select>
+        </label>
+        <label>ID Number<input type="text" id="idNumber" required placeholder="RC-12345 / AL-98765" /></label>
+        <label>Family Size (for food schedule)<input type="number" id="familySize" min="1" max="15" value="4" required /></label>
+        <label>Password<input type="password" id="password" minlength="8" required /></label>
+        <label>MFA / Biometric Code<input type="text" id="mfa" minlength="6" required placeholder="One-time code" /></label>
+        <button type="submit" class="btn primary">Authenticate & Open Dashboard</button>
+      </form>
+      <p class="note">Security: Firebase Auth (email/password), role checks, encrypted local document storage, audit logs. Add real biometric and server policies in production.</p>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="grid-3">
+        <article class="card"><h3>Identity Wallet</h3><div id="profile"></div><button id="downloadProfile" class="btn secondary">Export Profile Snapshot</button></article>
+        <article class="card"><h3>Smart Alerts</h3><ul id="alerts"></ul><button id="enableOffline" class="btn secondary">Enable Offline Cache</button></article>
+        <article class="card">
+          <h3>Digital Documents</h3>
+          <form id="docForm">
+            <input type="text" id="docName" placeholder="Document title" required />
+            <textarea id="docText" placeholder="Paste important details" required></textarea>
+            <button class="btn primary" type="submit">Store Encrypted Document</button>
+          </form>
+          <ul id="documents"></ul>
+        </article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card"><h3>Refugee Module</h3><ul id="refugeeModule"></ul></article>
+        <article class="card"><h3>Service Module</h3><ul id="serviceModule"></ul></article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>NGO Staff Module</h3>
+          <form id="announcementForm" class="stack">
+            <select id="announcementType">
+              <option>Food Distribution</option><option>DRS Alien Card Availability</option><option>Fingerprinting</option><option>Census</option><option>Medical Services</option>
+            </select>
+            <input type="text" id="announcementText" placeholder="Announcement details" required />
+            <button class="btn primary" type="submit">Post Announcement</button>
+          </form>
+          <ul id="announcements"></ul>
+        </article>
+
+        <article class="card chatbot">
+          <h3>AI Refugee Assistant</h3>
+          <p class="note">Supports service discovery, ration-date prediction, status tracking, multilingual coaching, and mood-aware recommendations.</p>
+          <div class="stack">
+            <select id="language"><option value="en">English</option><option value="sw">Kiswahili</option><option value="so">Somali</option></select>
+            <input type="text" id="mood" placeholder="How are you feeling? (e.g., stressed, hopeful)" />
+            <textarea id="chatInput" placeholder="Ask about food schedule, Alien card, resettlement, services..." required></textarea>
+            <button id="askAssistant" class="btn primary" type="button">Ask Assistant</button>
+            <div id="assistantReply" class="reply"></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>NGO Information Directory</h3>
+          <p class="note">Fetched from configured source (Firebase Firestore or JSON API fallback).</p>
+          <button id="refreshNgo" class="btn secondary" type="button">Refresh NGO Data</button>
+          <ul id="ngoInfo"></ul>
+        </article>
+
+        <article class="card">
+          <h3>Refugee NGO Update Preferences (Toggle)</h3>
+          <div class="toggle-list">
+            <label><input type="checkbox" class="pref-toggle" data-pref="food" checked /> Food Distribution</label>
+            <label><input type="checkbox" class="pref-toggle" data-pref="medical" checked /> Medical Services</label>
+            <label><input type="checkbox" class="pref-toggle" data-pref="id" checked /> ID / DRS / Fingerprinting</label>
+            <label><input type="checkbox" class="pref-toggle" data-pref="education" checked /> Education & Training</label>
+            <label><input type="checkbox" class="pref-toggle" data-pref="urgent" checked /> Urgent Alerts Only</label>
+          </div>
+          <button id="refreshUpdates" class="btn secondary" type="button">Fetch NGO Updates</button>
+          <ul id="ngoUpdates"></ul>
+        </article>
+      </div>
+
+      <article class="card">
+        <h3>Service Delivery History & Audit Log</h3>
+        <ul id="history"></ul>
+      </article>
+    </section>
+  </main>
+
+  <footer><p>Built for humanitarian coordination with privacy-by-design, RBAC, encryption, and auditability.</p></footer>
+
+  <script>
+    window.FIREBASE_CONFIG = { apiKey: "REPLACE_ME", authDomain: "REPLACE_ME", projectId: "REPLACE_ME", appId: "REPLACE_ME" };
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

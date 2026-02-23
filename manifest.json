@@ -1,0 +1,9 @@
+{
+  "name": "Refugee Digital Identity and Life-Progress Wallet",
+  "short_name": "RefugeeWallet",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#1d7a85",
+  "icons": []
+}
