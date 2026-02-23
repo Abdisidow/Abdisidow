@@ -1,0 +1,41 @@
+:root {
+  --bg: #f4f7fb;
+  --text: #14233b;
+  --card: #ffffff;
+  --primary: #1d7a85;
+  --secondary: #274060;
+  --border: #dbe3ef;
+}
+body.dark {
+  --bg: #10141f;
+  --text: #f0f4ff;
+  --card: #182133;
+  --primary: #2ea6b4;
+  --secondary: #7ba9ff;
+  --border: #2a3854;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
+.topbar, footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); background: var(--card); }
+footer { border-top: 1px solid var(--border); border-bottom: none; }
+h1 { margin: 0; font-size: 1.2rem; }
+.subtitle { margin: 0.25rem 0 0; opacity: 0.8; }
+.container { max-width: 1200px; margin: 1rem auto; padding: 0 1rem 2rem; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1rem; margin-bottom: 1rem; }
+.grid-2, .grid-3 { display: grid; gap: 1rem; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+label, .stack { display: flex; flex-direction: column; gap: 0.4rem; }
+input, select, textarea, button { font: inherit; border: 1px solid var(--border); border-radius: 10px; padding: 0.6rem 0.7rem; background: transparent; color: inherit; }
+textarea { min-height: 90px; resize: vertical; }
+.btn { cursor: pointer; font-weight: 600; }
+.btn.primary { background: var(--primary); color: #fff; border: none; }
+.btn.secondary { background: transparent; border: 1px solid var(--secondary); color: var(--secondary); }
+.note { font-size: 0.88rem; opacity: 0.85; }
+.hidden { display: none; }
+.reply { border: 1px dashed var(--border); border-radius: 10px; padding: 0.8rem; min-height: 64px; background: color-mix(in srgb, var(--card) 85%, var(--primary) 15%); }
+.toggle-list { display: grid; gap: 0.45rem; margin-bottom: 0.8rem; }
+.toggle-list label { flex-direction: row; align-items: center; gap: 0.5rem; }
+.toggle-list input[type="checkbox"] { width: 1.1rem; height: 1.1rem; }
+ul { padding-left: 1.2rem; }
+@media (max-width: 700px) { .topbar, footer { flex-direction: column; align-items: flex-start; } }

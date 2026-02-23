@@ -1,0 +1,26 @@
+[
+  {
+    "name": "UNHCR Dadaab Field Office",
+    "focus": "Protection, registration, legal aid",
+    "camp": "Hagadera / Ifo / Dagahaley",
+    "contact": "+254-700-000-101"
+  },
+  {
+    "name": "WFP Food Assistance Unit",
+    "focus": "Food distribution schedules and voucher support",
+    "camp": "Dadaab + Kakuma",
+    "contact": "+254-700-000-202"
+  },
+  {
+    "name": "IRC Health & Education Desk",
+    "focus": "Primary healthcare and learning services",
+    "camp": "Kakuma",
+    "contact": "+254-700-000-303"
+  },
+  {
+    "name": "NRC Livelihoods Program",
+    "focus": "Training, employment linkage, shelter support",
+    "camp": "Kakuma / Dagahaley",
+    "contact": "+254-700-000-404"
+  }
+]
