@@ -1,0 +1,13 @@
+<svg width="520" height="320" viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="320" rx="20" fill="#0F172A"/>
+  <circle cx="260" cy="160" r="52" fill="#10B981"/>
+  <circle cx="100" cy="76" r="34" fill="#38BDF8"/>
+  <circle cx="426" cy="78" r="34" fill="#A78BFA"/>
+  <circle cx="98" cy="248" r="34" fill="#F59E0B"/>
+  <circle cx="424" cy="248" r="34" fill="#F43F5E"/>
+  <line x1="131" y1="91" x2="222" y2="140" stroke="#CBD5E1" stroke-width="5"/>
+  <line x1="396" y1="93" x2="298" y2="142" stroke="#CBD5E1" stroke-width="5"/>
+  <line x1="132" y1="229" x2="222" y2="181" stroke="#CBD5E1" stroke-width="5"/>
+  <line x1="396" y1="228" x2="300" y2="181" stroke="#CBD5E1" stroke-width="5"/>
+  <text x="228" y="166" fill="#062E2A" font-size="18" font-family="Arial" font-weight="700">Wallet</text>
+</svg>

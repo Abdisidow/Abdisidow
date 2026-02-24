@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refugee Digital Identity and Life-Progress Wallet</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-ocean">
+  <header class="topbar glass">
+    <div>
+      <h1>Refugee Digital Identity & Life-Progress Wallet</h1>
+      <p class="subtitle">Serving Dadaab (Hagadera, Ifo, Dagahaley) and Kakuma camps in Kenya</p>
+    </div>
+    <div class="topbar-actions">
+      <div id="themeSwatches" class="theme-swatches" aria-label="color themes">
+        <button class="swatch ocean active" data-theme="ocean" title="Ocean"></button>
+        <button class="swatch sunrise" data-theme="sunrise" title="Sunrise"></button>
+        <button class="swatch forest" data-theme="forest" title="Forest"></button>
+      </div>
+      <button id="toggleTheme" class="btn secondary">🌙 Dark Mode</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero card">
+      <img src="assets/camp-life.svg" alt="Illustration of refugee camp support services" class="hero-img" />
+      <div>
+        <h2>One trusted wallet for identity, aid, and progress</h2>
+        <p>Securely access NGO services, upcoming distribution events, health and education support, resettlement updates, and AI-powered guidance.</p>
+        <div class="pill-row">
+          <span>🔐 MFA + Encrypted data</span>
+          <span>📢 Smart emergency alerts</span>
+          <span>🌍 Multilingual assistant</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card auth-card">
+      <h2>Secure Sign In / Registration</h2>
+      <p id="firebaseStatus" class="note">✅ Firebase is preconfigured. If needed, replace config with your own project values.</p>
+      <form id="authForm" class="grid-2">
+        <label>Full Name<input type="text" id="name" required placeholder="e.g., Asha Ibrahim" /></label>
+        <label>Email<input type="email" id="email" required placeholder="asha@example.org" /></label>
+        <label>Role
+          <select id="role" required><option value="refugee">Refugee</option><option value="ngo">NGO Staff</option><option value="service">Service Coordinator</option></select>
+        </label>
+        <label>Camp
+          <select id="camp" required><option>Hagadera</option><option>Ifo</option><option>Dagahaley</option><option>Kakuma</option></select>
+        </label>
+        <label>ID Type<select id="idType" required><option>Ration Card</option><option>Alien ID</option></select></label>
+        <label>ID Number<input type="text" id="idNumber" required placeholder="RC-12345 / AL-98765" /></label>
+        <label>Family Size<input type="number" id="familySize" min="1" max="15" value="4" required /></label>
+        <label>Password<input type="password" id="password" minlength="8" required /></label>
+        <label>MFA / Biometric Code<input type="text" id="mfa" minlength="6" required placeholder="One-time code" /></label>
+        <button type="submit" class="btn primary">Authenticate & Open Dashboard</button>
+      </form>
+    </section>
+
+    <section id="dashboard" class="hidden">
+
+      <section class="mobile-shell card">
+        <div class="mobile-hero">
+          <div>
+            <p class="welcome">Welcome back</p>
+            <h3 id="mobileName">Guest</h3>
+            <p id="mobileCamp" class="camp-line">📍 Dadaab</p>
+          </div>
+          <div class="avatar" id="mobileAvatar">G</div>
+        </div>
+        <div class="urgent-banner" id="urgentBanner">⚠️ DRS Alien Card Collection: New cards ready for collection.</div>
+        <div class="category-grid" id="categoryGrid">
+          <article><span>🌾</span><p>Food</p></article>
+          <article><span>❤️</span><p>Health</p></article>
+          <article><span>🎓</span><p>Education</p></article>
+          <article><span>📄</span><p>Documents</p></article>
+          <article><span>💼</span><p>Jobs</p></article>
+          <article><span>✨</span><p>AI Help</p></article>
+        </div>
+        <div class="progress-card">
+          <div class="progress-head"><strong>Resettlement Progress</strong><span id="resettlementValue">11%</span></div>
+          <div class="progress-track"><div id="resettlementBar" class="progress-bar"></div></div>
+          <p class="note">Current stage: <span id="resettlementStage">Not Started</span></p>
+        </div>
+
+        <div class="profile-stats" id="profileStats"></div>
+
+        <div class="profile-panel">
+          <h4>Personal Info</h4>
+          <div id="personalInfoRows" class="profile-list"></div>
+        </div>
+
+        <div class="profile-grid">
+          <section class="profile-panel"><h4>Security & Privacy</h4><div id="securityRows" class="profile-list"></div></section>
+          <section class="profile-panel"><h4>Preferences</h4><div id="preferencesRows" class="profile-list"></div></section>
+          <section class="profile-panel"><h4>Quick Access</h4><div id="quickAccessRows" class="profile-list"></div></section>
+          <section class="profile-panel"><h4>Support & More</h4><div id="supportRows" class="profile-list"></div></section>
+        </div>
+
+        <div class="profile-panel">
+          <h4>Recent Activity</h4>
+          <ul id="recentActivity" class="timeline-list"></ul>
+        </div>
+
+        <button id="signOutBtn" type="button" class="btn signout">↪ Sign Out</button>
+      </section>
+
+      <section class="card visual-feed">
+        <div class="feed-head">
+          <h3>🖼️ Visual Service Highlights</h3>
+          <span>Camp-ready cards inspired by modern mobile layouts</span>
+        </div>
+        <div id="visualShowcase" class="visual-grid"></div>
+      </section>
+
+      <div class="kpi-grid">
+        <article class="metric card"><h4>📦 Aid Tasks</h4><p id="kpiAidTasks">0</p></article>
+        <article class="metric card"><h4>🆕 NGO Updates</h4><p id="kpiNgoUpdates">0</p></article>
+        <article class="metric card"><h4>📄 Secure Docs</h4><p id="kpiDocs">0</p></article>
+        <article class="metric card"><h4>⚡ Urgent Alerts</h4><p id="kpiUrgent">0</p></article>
+      </div>
+
+      <div class="grid-3">
+        <article class="card"><h3>🪪 Identity Wallet</h3><div id="profile"></div><button id="downloadProfile" class="btn secondary">Export Profile Snapshot</button></article>
+        <article class="card"><h3>🚨 Smart Alerts</h3><ul id="alerts"></ul><button id="enableOffline" class="btn secondary">Enable Offline Cache</button></article>
+        <article class="card"><h3>🗂️ Digital Documents</h3><form id="docForm" class="stack"><input type="text" id="docName" placeholder="Document title" required /><textarea id="docText" placeholder="Paste important details" required></textarea><button class="btn primary" type="submit">Store Encrypted Document</button></form><ul id="documents"></ul></article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card"><h3>👨‍👩‍👧 Refugee Module</h3><ul id="refugeeModule"></ul></article>
+        <article class="card"><h3>🧭 Service Module</h3><ul id="serviceModule"></ul></article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card"><h3>📣 NGO Staff Module</h3><form id="announcementForm" class="stack"><select id="announcementType"><option>Food Distribution</option><option>DRS Alien Card Availability</option><option>Fingerprinting</option><option>Census</option><option>Medical Services</option></select><input type="text" id="announcementText" placeholder="Announcement details" required /><button class="btn primary" type="submit">Post Announcement</button></form><ul id="announcements"></ul></article>
+        <article class="card chatbot"><h3>🤖 AI Refugee Assistant</h3><div class="stack"><select id="language"><option value="en">English</option><option value="sw">Kiswahili</option><option value="so">Somali</option></select><input type="text" id="mood" placeholder="How are you feeling?" /><textarea id="chatInput" placeholder="Ask about food schedule, Alien card, or services" required></textarea><button id="askAssistant" class="btn primary" type="button">Ask Assistant</button><div id="assistantReply" class="reply"></div></div></article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card"><h3>🏛️ NGO Information Directory</h3><p class="note">Includes contacts, support focus, and direct links.</p><button id="refreshNgo" class="btn secondary" type="button">Refresh NGO Data</button><ul id="ngoInfo"></ul></article>
+        <article class="card"><h3>🔔 Refugee NGO Update Preferences</h3><div class="toggle-list"><label><input type="checkbox" class="pref-toggle" data-pref="food" checked /> Food Distribution</label><label><input type="checkbox" class="pref-toggle" data-pref="medical" checked /> Medical Services</label><label><input type="checkbox" class="pref-toggle" data-pref="ids" checked /> ID / DRS / Fingerprinting</label><label><input type="checkbox" class="pref-toggle" data-pref="education" checked /> Education & Training</label><label><input type="checkbox" class="pref-toggle" data-pref="urgentOnly" /> Urgent only</label></div><button id="refreshUpdates" class="btn secondary" type="button">Refresh Updates</button><ul id="ngoUpdates"></ul></article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>🌐 Live NGO Website Monitor</h3>
+          <p class="note">Pulls latest headlines from NGO websites and displays matching photos.</p>
+          <div class="stack">
+            <button id="refreshWebsiteNews" class="btn secondary" type="button">Fetch NGO Website Updates</button>
+            <button id="enableNotifications" class="btn primary" type="button">Enable Device Notifications</button>
+          </div>
+          <div id="websiteUpdates" class="news-grid"></div>
+        </article>
+        <article class="card">
+          <h3>📲 Smart Mobile Features</h3>
+          <ul id="mobileFeatures"></ul>
+        </article>
+      </div>
+
+      <article class="card">
+        <h3>🖼️ Featured NGO Post</h3>
+        <div id="featuredNgoPost" class="featured-post"></div>
+      </article>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>🔐 Blockchain Identity & Tamper-Proof History</h3>
+          <ul id="blockchainModule"></ul>
+        </article>
+        <article class="card">
+          <h3>🧠 Predictive AI & Smart Insights</h3>
+          <ul id="predictiveInsights"></ul>
+        </article>
+      </div>
+
+      <article class="card">
+        <h3>📊 Real-Time Camp Analytics Dashboard (NGO/Admin)</h3>
+        <div class="analytics-grid" id="campAnalytics"></div>
+      </article>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>📍 Smart Camp Navigation</h3>
+          <div id="campMap" class="camp-map"></div>
+          <button id="emergencyMapBtn" class="btn primary" type="button">Emergency Help</button>
+        </article>
+        <article class="card">
+          <h3>💳 Life-Progress Service Wallet</h3>
+          <ul id="walletModule"></ul>
+        </article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>📅 Smart Queue Management</h3>
+          <p id="queueTicket" class="queue-ticket"></p>
+          <button id="joinQueueBtn" class="btn secondary" type="button">Join Distribution Queue</button>
+        </article>
+        <article class="card chatbot">
+          <h3>🌐 Multi-Language + Voice Assistant</h3>
+          <div class="stack">
+            <select id="uiLanguage"><option value="en">English</option><option value="sw">Kiswahili</option><option value="so">Somali</option><option value="ar">Arabic</option></select>
+            <button id="voiceAssistBtn" class="btn secondary" type="button">🎙️ Voice Navigation Mode</button>
+            <p id="voiceStatus" class="note">Voice mode inactive.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>🚨 Emergency & Protection</h3>
+          <div class="stack">
+            <button class="btn primary emergency-action" data-type="GBV report">Report GBV (Private)</button>
+            <button class="btn secondary emergency-action" data-type="Child protection">Child protection report</button>
+            <button class="btn secondary emergency-action" data-type="Anonymous report">Anonymous protection channel</button>
+          </div>
+        </article>
+        <article class="card">
+          <h3>🎓 Skills, Jobs & CV Builder</h3>
+          <ul id="skillsJobsModule"></ul>
+        </article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>💡 Mood & Wellbeing AI</h3>
+          <ul id="wellbeingModule"></ul>
+        </article>
+        <article class="card">
+          <h3>🔐 Security, Privacy & Compliance</h3>
+          <ul id="securityCompliance"></ul>
+        </article>
+      </div>
+
+      <article class="card">
+        <h3>📱 Low-Bandwidth Access (SMS/USSD)</h3>
+        <ul id="smsUssdModule"></ul>
+      </article>
+
+      <div class="grid-2">
+        <article class="card"><h3>📰 Camp Announcements Board</h3><ul id="postedInfo"></ul></article>
+        <article class="card media-card"><h3>🌐 Verified NGO & Service Links</h3><img src="assets/ngo-network.svg" alt="Network visualization of connected NGOs" class="mini-illustration"/><ul id="ngoLinks"></ul></article>
+      </div>
+
+      <article class="card"><h3>📜 Audit & Service History</h3><ul id="history"></ul></article>
+    </section>
+  </main>
+
+  <script type="module">
+    window.FIREBASE_CONFIG = {
+      apiKey: "AIzaSyBPGWMIeyzF_SDhtnyAzFjp-epFBoFa7CU",
+      authDomain: "refugee-c94df.firebaseapp.com",
+      projectId: "refugee-c94df",
+      storageBucket: "refugee-c94df.firebasestorage.app",
+      messagingSenderId: "681103930771",
+      appId: "1:681103930771:web:b67f4f4977016f0bc6e466",
+      measurementId: "G-3B4R1ZZKL1"
+    };
+    import "./app.js";
+  </script>
+</body>
+</html>

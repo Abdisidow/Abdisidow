@@ -1,0 +1,38 @@
+[
+  {
+    "name": "UNHCR Dadaab Field Office",
+    "focus": "Protection, registration, legal aid",
+    "camp": "Hagadera / Ifo / Dagahaley",
+    "contact": "+254-700-000-101",
+    "website": "https://www.unhcr.org/ke",
+    "infoLink": "https://help.unhcr.org/kenya/",
+    "image": "https://images.unsplash.com/photo-1469571486292-b53601020f37?auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    "name": "WFP Food Assistance Unit",
+    "focus": "Food distribution schedules and voucher support",
+    "camp": "Dadaab + Kakuma",
+    "contact": "+254-700-000-202",
+    "website": "https://www.wfp.org/countries/kenya",
+    "infoLink": "https://www.wfp.org/operations/ke01-kenya-country-strategic-plan",
+    "image": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    "name": "IRC Health & Education Desk",
+    "focus": "Primary healthcare and learning services",
+    "camp": "Kakuma",
+    "contact": "+254-700-000-303",
+    "website": "https://www.rescue.org/country/kenya",
+    "infoLink": "https://www.rescue.org/topic/education",
+    "image": "https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    "name": "NRC Livelihoods Program",
+    "focus": "Training, employment linkage, shelter support",
+    "camp": "Kakuma / Dagahaley",
+    "contact": "+254-700-000-404",
+    "website": "https://www.nrc.no/",
+    "infoLink": "https://www.nrc.no/what-we-do/speaking-up-for-rights/",
+    "image": "https://images.unsplash.com/photo-1527525443983-6e60c75fff46?auto=format&fit=crop&w=500&q=80"
+  }
+]
